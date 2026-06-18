@@ -36,6 +36,10 @@ Installed components are subject to § 1.1.–§ 1.3. Refactor the props type, o
 
 Replace `T | null`, `T | undefined`, and `T | null | undefined` with `Nullable<T>`, `Optional<T>`, and `Maybe<T>` from `@/shared/lib`. Wrap the full non-nullish operand: `Nullable<A | B>`, not `A | Nullable<B>`.
 
+## 3.2. Function and method names
+
+Name functions and methods with a verb or verb phrase whenever practical. Prefer names that describe the action performed or value retrieved.
+
 # 4. Duration Literals
 
 ## 4.1. Shared constants precedence
