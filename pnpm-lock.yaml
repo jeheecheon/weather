@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/noto-sans-kr':
+        specifier: ^5.2.10
+        version: 5.2.10
+      '@fontsource-variable/roboto':
+        specifier: ^5.2.10
+        version: 5.2.10
+      '@fontsource-variable/roboto-mono':
+        specifier: ^5.2.9
+        version: 5.2.9
       '@tanstack/react-query':
         specifier: ^5.100.9
         version: 5.101.0(react@19.2.4)
@@ -599,6 +608,15 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+
+  '@fontsource-variable/noto-sans-kr@5.2.10':
+    resolution: {integrity: sha512-UZOO7HF44Rt5+7SCeFMHYVgbKu36Jet6IxrAd7jjEkQMVDmeefwd0H8V5pSZydvBOOxClk3V5cQsujJqGHhQMw==}
+
+  '@fontsource-variable/roboto-mono@5.2.9':
+    resolution: {integrity: sha512-OzFO2AXlSGcXl/NcXS3CGjImb6rczCByPJ1C+Dzp9kkYOrUPyrGTuAtqPcmA/d+nZGX5oyOWKXLk5BrwVLYqkw==}
+
+  '@fontsource-variable/roboto@5.2.10':
+    resolution: {integrity: sha512-LJ0iLg6aHbLzN515gyHzmdTqJzd9NlI95cCg1DW0F5G7KkFqRLBBKBbqEJx4nSu4aby3IKmw3ZH6Fe928IfaSQ==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -3495,6 +3513,12 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
 
   '@floating-ui/utils@0.2.11': {}
+
+  '@fontsource-variable/noto-sans-kr@5.2.10': {}
+
+  '@fontsource-variable/roboto-mono@5.2.9': {}
+
+  '@fontsource-variable/roboto@5.2.10': {}
 
   '@humanfs/core@0.19.2':
     dependencies:

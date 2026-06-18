@@ -1,8 +1,8 @@
 @theme {
   --font-sans:
-    "Roboto", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-    "Malgun Gothic", sans-serif;
-  --font-mono: "Roboto Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    "Roboto Variable", "Noto Sans KR Variable", system-ui, -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono: "Roboto Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --color-*: initial;
 

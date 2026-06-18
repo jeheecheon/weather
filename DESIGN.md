@@ -160,14 +160,14 @@ The surface ladder is closed at four tiers. Each tier maps to one role; mixing r
 ### 3.2.1. Font Family.
 
 ```
-Roboto, 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont,
+'Roboto Variable', 'Noto Sans KR Variable', system-ui, -apple-system, BlinkMacSystemFont,
 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif
 ```
 
 Mono (numerics only — temperatures, times, counts):
 
 ```
-'Roboto Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace
+'Roboto Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace
 ```
 
 | Decision                       | Reason                                                                                                       |
