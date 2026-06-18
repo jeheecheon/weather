@@ -51,3 +51,5 @@ If `layout.md` says to follow the Apple Weather reference but `reference-excepti
 After reading the required documents, answer normally. Mention the document basis briefly when it affects the decision, but do not produce a long document summary unless the user asks for one.
 
 If a requested change conflicts with the required documents, state the conflict and make the smallest reasonable document-compliant choice unless the user explicitly overrides it.
+
+When anything remains ambiguous, do not guess: surface every uncertainty and let the user make the decision.
