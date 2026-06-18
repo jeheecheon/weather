@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Docs"
+  short_description: "Read project docs before app work"
+  default_prompt: "Use $project-docs to work on the weather app after reading the project instructions and product/design docs."

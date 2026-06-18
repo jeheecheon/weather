@@ -32,4 +32,9 @@ yarn-error.log*
 *.tsbuildinfo
 
 # Claude
-.claude
+.claude/*
+!.claude/skills/
+
+# Codex
+.codex/*
+!.codex/skills/
