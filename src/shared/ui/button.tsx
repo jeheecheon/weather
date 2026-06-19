@@ -11,7 +11,7 @@ const buttonVariants = cva(
         default:
           "bg-primary text-on-primary hover:bg-primary-hover active:bg-primary-pressed disabled:bg-primary-disabled",
         destructive:
-          "bg-semantic-error text-on-primary hover:bg-semantic-error-strong focus-visible:ring-semantic-error",
+          "border border-semantic-error bg-canvas text-semantic-error hover:bg-semantic-error-soft active:bg-semantic-error-soft focus-visible:ring-semantic-error",
         outline:
           "border border-hairline-strong bg-canvas text-ink hover:bg-surface-soft active:bg-surface-pressed",
         secondary:
