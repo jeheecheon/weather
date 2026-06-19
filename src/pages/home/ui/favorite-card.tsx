@@ -21,7 +21,10 @@ export function FavoriteCard({
   onSelect,
 }: FavoriteCardProps) {
   const weather = useWeather({ lat: favorite.lat, lon: favorite.lon });
-  const condition = resolveWeatherCondition(weather.data);
+  const condition = resolveWeatherCondition(
+    weather.data.current.weatherCode,
+    weather.data.current.isDay,
+  );
 
   return (
     <div
@@ -51,11 +54,11 @@ export function FavoriteCard({
         <span className="flex gap-sm">
           <span>
             <span className="text-title-sm text-meta">최고 </span>
-            <span className="text-temp-sm text-ink">{Math.round(weather.data.daily.max)}°</span>
+            <span className="text-temp-sm text-ink">{Math.round(weather.data.today.max)}°</span>
           </span>
           <span>
             <span className="text-title-sm text-meta">최저 </span>
-            <span className="text-temp-sm text-meta">{Math.round(weather.data.daily.min)}°</span>
+            <span className="text-temp-sm text-meta">{Math.round(weather.data.today.min)}°</span>
           </span>
         </span>
       </button>

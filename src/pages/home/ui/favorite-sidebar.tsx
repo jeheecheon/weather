@@ -1,6 +1,6 @@
 import { cn, type Nullable, type Optional } from "@/shared/lib";
 import { Modal } from "@/shared/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { type District } from "../model/district";
 import { type Favorite, useFavorites } from "../model/use-favorites";
 import { FavoriteEditForm } from "./favorite-edit-form";
@@ -20,12 +20,6 @@ export function FavoriteSidebar({
 }: FavoriteSidebarProps) {
   const { favorites, removeFavorite, updateFavorite } = useFavorites();
   const [editingFavorite, setEditingFavorite] = useState<Optional<Favorite>>();
-
-  useEffect(() => {
-    if (!activeDistrict && favorites[0]) {
-      onActiveDistrictChange(favorites[0]);
-    }
-  }, [activeDistrict, favorites, onActiveDistrictChange]);
 
   return (
     <aside

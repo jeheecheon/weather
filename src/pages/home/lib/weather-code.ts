@@ -11,16 +11,12 @@ import {
   Moon,
   Sun,
 } from "lucide-react";
-import type { Weather } from "../model/weather";
-
 export type WeatherCondition = {
   Icon: LucideIcon;
   label: string;
 };
 
-export function resolveWeatherCondition(weather: Weather): WeatherCondition {
-  const { isDay, weatherCode } = weather.current;
-
+export function resolveWeatherCondition(weatherCode: number, isDay = true): WeatherCondition {
   if (weatherCode === 0) {
     return { Icon: isDay ? Sun : Moon, label: "맑음" };
   }

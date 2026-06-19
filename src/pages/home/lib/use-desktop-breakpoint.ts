@@ -6,7 +6,7 @@ type UseDesktopParams = {
 };
 
 export function useDesktopBreakpoint(params: UseDesktopParams = {}) {
-  const isDesktop = useMedia("(width >= 48rem)");
+  const isDesktop = useMedia("(width >= 64rem)");
 
   useEffect(() => {
     params.onChange?.(isDesktop);

@@ -53,7 +53,7 @@ The system lifts REALTEETH's token architecture (a clinical teal accent over a c
 | Single teal accent (#00a4c5) as the only brand hue | Sky/atmosphere register; one accent keeps a data-dense weather UI calm                                    |
 | Cool slate neutral ramp (blue-tinted grays)        | Reads as sky/haze, not warm paper; sits naturally under a teal accent                                     |
 | Roboto + Noto Sans KR type pairing                 | Matches the source product; clean Latin numerals for temperatures, solid Hangul for Korean district names |
-| 6–8px control radius, pill for chips               | Source product's geometry; sober, utilitarian, not consumer-marketplace                                   |
+| 8–12px control radius, pill for chips              | Rounded enough to echo modern weather surfaces while staying calmer than fully playful consumer UI        |
 | Hairline-as-elevation, flat by default             | Source product ships mostly flat with 1px borders; shadows reserved for designated roles (§ 3.5.)         |
 | Mono numerics for tabular values                   | Temperatures, times, and counts anchor to a tabular mono register (§ 3.2.4.)                              |
 
@@ -97,8 +97,8 @@ A cool, blue-tinted neutral ramp (REALTEETH Navy). Carries every surface and eve
 
 | Token             | Hex     | Use                                                                                           |
 | ----------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `canvas`          | #ffffff | Component floor — cards, inputs, page content surfaces (§ 3.1.4.)                             |
-| `page`            | #f4f8fb | App shell / page backdrop behind content (REALTEETH Navy-100)                                 |
+| `canvas`          | #ffffff | Component floor — cards, inputs, page content surfaces (§ 3.1.5.)                             |
+| `page`            | #eef9fd | App shell / sky-tinted page backdrop behind content                                           |
 | `surface-soft`    | #f4f8fb | Default raised fill for chip-style controls and static raised regions                         |
 | `surface-strong`  | #edf2f6 | `:hover` escalation for `surface-soft`-rest controls; disabled-input fill                     |
 | `surface-pressed` | #e3eaef | `:active` (held-down) escalation; ladder ceiling                                              |
@@ -116,7 +116,21 @@ The token name is `meta`, not `muted`, to avoid colliding with shadcn's `--color
 
 `ink` = #202c33 (a deep slate, not pure black) so Hangul stroke density does not read heavier than surrounding Latin.
 
-### 3.1.3. Semantic.
+### 3.1.3. Atmospheric Backdrop.
+
+Backdrop tokens are not UI accents. They are low-opacity background atmosphere colors used only by the fixed page backdrop layer (§ 5.8.).
+
+| Token                | Hex     | Use                              |
+| -------------------- | ------- | -------------------------------- |
+| `backdrop-clear`     | #d9f2fb | Clear / mostly clear atmosphere  |
+| `backdrop-cloudy`    | #c6d3dc | Cloudy atmosphere                |
+| `backdrop-rain`      | #9fb1bd | Rain / drizzle atmosphere        |
+| `backdrop-snow`      | #edf8fb | Snow atmosphere                  |
+| `backdrop-fog`       | #dce5ea | Fog atmosphere                   |
+| `backdrop-thunder`   | #9aa8b5 | Thunder atmosphere               |
+| `backdrop-night`     | #8fa0ad | Night atmosphere, still light UI |
+
+### 3.1.4. Semantic.
 
 Brand-derived status tokens. Each has a `-soft` fill companion for badges/banners. Text variants are tuned toward WCAG AA on `canvas`; `-soft` fills carry their status text or icon.
 
@@ -135,7 +149,7 @@ Brand-derived status tokens. Each has a `-soft` fill companion for badges/banner
 
 No status hue is promoted to a second brand accent — severe-weather and alert states reuse `semantic-warning` / `semantic-error` only (§ 6.2.).
 
-### 3.1.4. Surface Ladder Semantics.
+### 3.1.5. Surface Ladder Semantics.
 
 The surface ladder is closed at four tiers. Each tier maps to one role; mixing roles across tiers is forbidden.
 
@@ -153,7 +167,7 @@ The surface ladder is closed at four tiers. Each tier maps to one role; mixing r
 | `surface-pressed` is reserved for `:active`; it MUST NOT be any component's resting fill.                        | The ladder must terminate; promoting any rest above it breaks the interaction model.                    |
 | No fifth tier is added. Further escalation uses `ring-1 ring-inset` or `scale-[0.98]`, not surface tone.         | Each new tier reproduces the same endpoint problem one step higher.                                     |
 
-`page` (#f4f8fb) shares the `surface-soft` value: the app shell tints the backdrop so white `canvas` cards read as raised against it without a shadow.
+`page` (#eef9fd) is a very light sky tint for the app shell. It is intentionally separate from `surface-soft` so the atmospheric backdrop remains visible while white `canvas` cards still read as raised surfaces.
 
 ## 3.2. Typography.
 
@@ -243,15 +257,15 @@ Tokens generate `rounded-{token}` utilities. `rounded-none` and `rounded-full` a
 
 | Token  | px   | Use                                                    |
 | ------ | ---- | ------------------------------------------------------ |
-| `none` | 0    | Reserved                                               |
-| `xs`   | 4    | Tag / badge                                            |
-| `sm`   | 6    | Small controls (matches source product)                |
-| `md`   | 8    | Buttons, inputs, favorite cells (default — source app) |
-| `lg`   | 12   | Containers, sidebar panel                              |
-| `xl`   | 16   | Modals, featured surfaces                              |
-| `full` | 9999 | Pills, search input, icon button, status pill          |
+| `none` | 0    | Reserved                                      |
+| `xs`   | 6    | Tag / badge, skeleton details                 |
+| `sm`   | 8    | Small controls                                |
+| `md`   | 12   | Buttons, inputs, favorite cells               |
+| `lg`   | 18   | Containers, sidebar panel, weather tiles      |
+| `xl`   | 24   | Modals, featured surfaces                     |
+| `full` | 9999 | Pills, search input, icon button, status pill |
 
-`md` (8px) is the default control radius (source product's `--radius: .5rem`); the sidebar panel steps up to `lg` (12px) as a container, and the favorite cells nested inside step back down to `md` — 4px-step nesting in each direction.
+`md` (12px) is the default control radius. The sidebar panel and weather tiles step up to `lg` (18px) as containers, and favorite cells nested inside step back down to `md` so the hierarchy remains visible.
 
 ## 3.5. Elevation.
 
@@ -293,7 +307,7 @@ Tailwind v4 CSS-first config. Tokens declared in the `@theme` block of `src/app/
 
 @theme {
   --color-canvas: #ffffff;
-  --color-page: #f4f8fb;
+  --color-page: #eef9fd;
   --color-ink: #202c33;
   --color-primary: #00a4c5;
   --color-hairline: #dfe6eb;
@@ -413,12 +427,12 @@ Keyboard: ↑/↓ move `aria-selected`; Enter selects. The highlighted row uses 
 
 ## 5.4. Favorite Card.
 
-Feature composition; tokens only (full layout lives with the feature). Up to 6 per the PRD. Favorite cards are inset cells nested inside the `canvas` sidebar panel, not raised cards floating on `page` — so they rest at `surface-soft` and read as recessed wells against the white panel (§ 3.1.4.), matching the reference's quiet location rows.
+Feature composition; tokens only (full layout lives with the feature). Up to 6 per the PRD. Favorite cards are inset cells nested inside the `canvas` sidebar panel, not raised cards floating on `page` — so they rest at `surface-soft` and read as recessed wells against the white panel (§ 3.1.5.), matching the reference's quiet location rows.
 
 | Property       | Spec                                                                                                                                                     |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Surface        | `surface-soft`, `rounded-md`, 1px `hairline` (inset cell — no shadow; the enclosing sidebar panel carries the elevation)                                 |
-| `:hover`       | `bg-surface-strong` (chip ladder, § 3.1.4.; signals click-through to detail)                                                                             |
+| `:hover`       | `bg-surface-strong` (chip ladder, § 3.1.5.; signals click-through to detail)                                                                             |
 | Selected       | `ring-2 ring-primary ring-inset` — the active location. This is the active-navigation marker, the sole `primary` selection exception (§ 3.1.1., § 6.2.). |
 | Location alias | `title-md` `ink`; editable (rename) via `text-input` in a modal (§ 5.6.)                                                                                 |
 | Current temp   | `temp-lg` `ink`                                                                                                                                          |
@@ -449,11 +463,25 @@ Weather state is conveyed by neutral icon + mono numerals only — no hue encodi
 | Element             | Spec                                                                                                          |
 | ------------------- | ------------------------------------------------------------------------------------------------------------- |
 | Condition icon      | lucide glyph (`sun`, `cloud`, `cloud-rain`, `cloud-snow`, `cloud-lightning`, `cloud-fog`, `moon`, …) in `ink` |
-| Day vs night        | Swap glyph only (`sun` ↔ `moon`, `cloud-sun` ↔ `cloud-moon`); never swap canvas/accent (§ 4.1.)               |
+| Day vs night        | Swap glyph only (`sun` ↔ `moon`, `cloud-sun` ↔ `cloud-moon`); never swap canvas/accent (§ 4.1.). The page-level atmospheric backdrop MAY change softly by rendered condition (§ 5.8.). |
 | Current temp        | `temp-hero` (detail) / `temp-lg` (card), `ink`                                                                |
 | High / low pair     | `temp-sm`; high `ink`, low `meta`; label with `title-sm` (최고 / 최저)                                        |
 | Hourly strip        | Per-hour: `num-mono` hour label (`meta`), neutral condition icon, `temp-md` temperature (`ink`)               |
 | Severe-weather note | `semantic-warning` (caution) or `semantic-error` (danger) banner using its `-soft` fill — never a new accent  |
+
+## 5.8. Atmospheric Backdrop.
+
+The app MAY use a page-level background atmosphere layer behind all UI. This layer exists to bring the Apple Weather reference's environmental depth into the app without turning weather data into colored UI states.
+
+| Property | Spec |
+| --- | --- |
+| Scope | Fixed background only, behind the app shell. Never inside cards, icons, controls, charts, or text. |
+| Strength | Subtle: low-opacity overlays that preserve the light theme and keep all foreground surfaces readable. |
+| Condition mapping | Allowed for broad weather families (clear, cloudy, rain, snow, fog, thunder, night) only. Do not encode exact temperature, UV, AQI, severity, or forecast values. |
+| Top gradient | A shallow top readability gradient is allowed, approximately the top 15% of the viewport. |
+| Foreground rule | Cards, favorite items, data values, icons, selection states, and alerts continue to use § 3 tokens and § 5.7 weather display rules. |
+
+Atmospheric backdrop gradients are the only permitted background-gradient exception. They are not component gradients, chart gradients, temperature scales, condition-colored icons, or alternate themes.
 
 # 6. Rules.
 
@@ -463,10 +491,11 @@ Weather state is conveyed by neutral icon + mono numerals only — no hue encodi
 - Render every temperature and time with a `temp-*` / `num-mono` token; tabular numerals only (§ 3.2.3., § 3.2.4.).
 - Distinguish weather conditions by neutral icon (`ink`/`meta`) — never by color (§ 5.7.).
 - Use 1px `hairline` as default elevation; `shadow-raised` for raised content containers (the sidebar panel, the hourly-forecast card); `shadow-floating` for the search-results overlay and popovers (§ 3.5.).
+- Use atmospheric backdrop gradients only as the fixed page background layer described in § 5.8.
 - Reference colors via Tailwind utilities (`bg-*`, `text-*`, `border-*`) or `var(--color-*)` — never hard-code hex (§ 4.2.).
 - Hex literals are permitted ONLY inside CSS filter functions (`drop-shadow()`, `mask-*`, `backdrop-filter`) where the value is a compositor parameter; comment the waiver at its site.
 - Verify every new color token ≥ WCAG AA against `canvas` (#ffffff) (§ 4.1.).
-- Start every interactive component's resting fill at `canvas` or `surface-soft` (§ 3.1.4.); never higher.
+- Start every interactive component's resting fill at `canvas` or `surface-soft` (§ 3.1.5.); never higher.
 - Define the full state matrix (`:hover`, `:active`, `:disabled`, `:focus-visible`) for every interactive variant (§ 5.1.2., § 5.2.2.).
 - Use `:focus-visible` (not `:focus`) for keyboard rings (§ 5.1.2.).
 - Trigger error styling via `aria-invalid="true"` (§ 5.2.2.).
@@ -480,13 +509,13 @@ Weather state is conveyed by neutral icon + mono numerals only — no hue encodi
 - No per-condition hue; conditions are icon-only (§ 5.7.).
 - No dark mode and no day/night theme swap; one static light theme (§ 4.1.).
 - No `primary` on filter / selection / toggle chips; use `ink` (e.g. `chip-selected`). The active-navigation marker is the sole exception (§ 3.1.1., § 6.1.).
-- No background gradients (§ 3.1.).
+- No background gradients except the page-level atmospheric backdrop layer (§ 5.8.).
 - No Hangul in any `temp-*` / `num-mono` token (§ 3.2.5.).
 - No `display-*`, `title-*`, or `body-*` on categorical navigation labels; use `nav-*` (§ 3.2.2.).
-- No `rounded-xl` (16px) outside modals/featured surfaces (§ 3.4.).
+- No `rounded-xl` (24px) outside modals/featured surfaces (§ 3.4.).
 - No shadow on `canvas`-flat resting surfaces — use hairline (§ 3.5.).
-- No `surface-strong` or `surface-pressed` as an interactive component's resting fill (§ 3.1.4.).
-- No fifth surface tier (§ 3.1.4.).
+- No `surface-strong` or `surface-pressed` as an interactive component's resting fill (§ 3.1.5.).
+- No fifth surface tier (§ 3.1.5.).
 - No conflated hover/active on chip controls; no `hover:bg-primary-pressed` shorthand (§ 5.1.2.).
 - No `:focus` rings on mouse click — use `:focus-visible` (§ 5.1.2.).
 

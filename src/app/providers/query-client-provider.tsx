@@ -7,6 +7,7 @@ import { type PropsWithChildren } from "react";
 
 const QUERY_CACHE_MAX_AGE = A_DAY;
 const QUERY_CACHE_STORAGE_KEY = "weather-query-cache";
+const QUERY_CACHE_BUSTER = "weather-v2";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,7 +27,11 @@ export function QueryClientProvider({ children }: PropsWithChildren) {
   return (
     <PersistQueryClientProvider
       client={queryClient}
-      persistOptions={{ maxAge: QUERY_CACHE_MAX_AGE, persister: queryPersister }}
+      persistOptions={{
+        buster: QUERY_CACHE_BUSTER,
+        maxAge: QUERY_CACHE_MAX_AGE,
+        persister: queryPersister,
+      }}
     >
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
