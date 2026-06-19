@@ -1,5 +1,6 @@
 import { ensure, type Nullable } from "@/shared/lib";
 import { useMemo } from "react";
+import { toast } from "react-hot-toast";
 import { useStorageState } from "synced-storage/react";
 import { districts, type District } from "./district";
 
@@ -37,17 +38,20 @@ export function useFavorites() {
   );
 
   return useMemo(() => {
-    const addFavorite = (favorite: Favorite) =>
-      setFavorites((previous) => {
-        if (
-          previous.length >= MAX_FAVORITES ||
-          previous.some((item) => item.name === favorite.name)
-        ) {
-          return previous;
-        }
+    const addFavorite = (favorite: Favorite) => {
+      if (favorites.some((item) => item.name === favorite.name)) {
+        return;
+      }
 
-        return [...previous, favorite];
-      });
+      if (favorites.length >= MAX_FAVORITES) {
+        toast(`즐겨찾기는 최대 ${MAX_FAVORITES}개까지 추가할 수 있어요.`, {
+          id: "favorite-limit",
+        });
+        return;
+      }
+
+      setFavorites((previous) => [...previous, favorite]);
+    };
 
     const updateFavorite = (nextFavorite: Favorite) =>
       setFavorites((previous) =>
@@ -59,18 +63,14 @@ export function useFavorites() {
         previous.filter((favorite) => favorite.name !== targetFavorite.name),
       );
 
-    const toggleFavorite = (targetFavorite: Favorite) =>
-      setFavorites((previous) => {
-        if (previous.some((favorite) => favorite.name === targetFavorite.name)) {
-          return previous.filter((favorite) => favorite.name !== targetFavorite.name);
-        }
+    const toggleFavorite = (targetFavorite: Favorite) => {
+      if (favorites.some((favorite) => favorite.name === targetFavorite.name)) {
+        removeFavorite(targetFavorite);
+        return;
+      }
 
-        if (previous.length >= MAX_FAVORITES) {
-          return previous;
-        }
-
-        return [...previous, targetFavorite];
-      });
+      addFavorite(targetFavorite);
+    };
 
     return { favorites, addFavorite, removeFavorite, toggleFavorite, updateFavorite };
   }, [favorites, setFavorites]);
