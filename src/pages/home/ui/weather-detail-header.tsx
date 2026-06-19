@@ -5,7 +5,6 @@ import { PanelLeftIcon, StarIcon } from "lucide-react";
 type WeatherDetailHeaderProps = {
   className?: string;
   isFavorite: boolean;
-  isFavoriteToggleDisabled: boolean;
   onFavoritePanelToggle: () => void;
   onFavoriteToggle: () => void;
 };
@@ -13,7 +12,6 @@ type WeatherDetailHeaderProps = {
 export function WeatherDetailHeader({
   className,
   isFavorite,
-  isFavoriteToggleDisabled,
   onFavoritePanelToggle,
   onFavoriteToggle,
 }: WeatherDetailHeaderProps) {
@@ -29,9 +27,11 @@ export function WeatherDetailHeader({
           <PanelLeftIcon />
         </Button>
         <Button
+          className={cn(
+            isFavorite && "border-transparent bg-ink text-on-ink hover:bg-ink active:bg-ink/90",
+          )}
           size="icon"
-          variant={isFavorite ? "default" : "secondary"}
-          disabled={isFavoriteToggleDisabled}
+          variant="secondary"
           aria-label={isFavorite ? "즐겨찾기 삭제" : "즐겨찾기 추가"}
           onClick={onFavoriteToggle}
         >
