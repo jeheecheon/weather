@@ -16,7 +16,6 @@ Before answering a substantive project question or changing files, read these fi
 1. `AGENTS.md`
 2. `docs/PRD.md`
 3. `docs/layout.md`
-4. `docs/reference-exceptions.md`
 
 Then follow references from those files only when relevant:
 
@@ -33,12 +32,11 @@ Apply requirements in this order when documents overlap:
 1. User's latest explicit request.
 2. `AGENTS.md` coding and component conventions.
 3. `DESIGN.md` for visual-system rules.
-4. `docs/reference-exceptions.md` for where the Apple Weather reference must not be followed.
-5. `docs/layout.md` for screen structure and responsive layout.
-6. `docs/PRD.md` for product behavior and scope.
-7. Existing codebase patterns.
+4. `docs/layout.md` for screen structure and responsive layout.
+5. `docs/PRD.md` for product behavior and scope.
+6. Existing codebase patterns.
 
-If `layout.md` says to follow the Apple Weather reference but `reference-exceptions.md` or `DESIGN.md` forbids a visual treatment, follow the exception/design documents.
+If `layout.md` says to follow the Apple Weather reference but `DESIGN.md` forbids a visual treatment, follow the design document.
 
 ## Working Rules
 
