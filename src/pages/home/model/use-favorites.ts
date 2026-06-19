@@ -25,8 +25,8 @@ const daeguDistrict = ensure(
 );
 
 const DEFAULT_FAVORITES: Favorite[] = [
-  { ...seoulDistrict, alias: null },
   { ...busanDistrict, alias: null },
+  { ...seoulDistrict, alias: null },
   { ...daeguDistrict, alias: null },
 ];
 
@@ -59,6 +59,19 @@ export function useFavorites() {
         previous.filter((favorite) => favorite.name !== targetFavorite.name),
       );
 
-    return { favorites, addFavorite, removeFavorite, updateFavorite };
+    const toggleFavorite = (targetFavorite: Favorite) =>
+      setFavorites((previous) => {
+        if (previous.some((favorite) => favorite.name === targetFavorite.name)) {
+          return previous.filter((favorite) => favorite.name !== targetFavorite.name);
+        }
+
+        if (previous.length >= MAX_FAVORITES) {
+          return previous;
+        }
+
+        return [...previous, targetFavorite];
+      });
+
+    return { favorites, addFavorite, removeFavorite, toggleFavorite, updateFavorite };
   }, [favorites, setFavorites]);
 }

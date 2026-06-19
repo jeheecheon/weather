@@ -1,12 +1,12 @@
 import { cn, type Nullable } from "@/shared/lib";
 import { Button, Skeleton } from "@/shared/ui";
-import { LocateFixedIcon, PanelLeftIcon } from "lucide-react";
+import { LocateFixedIcon, PanelLeftIcon, StarIcon } from "lucide-react";
 import { useMemo } from "react";
 import { useWeather } from "../api/use-weather";
 import { resolveWeatherCondition } from "../lib/weather-code";
 import type { District } from "../model/district";
 import { useCurrentDistrict } from "../model/use-current-district";
-import { useFavorites } from "../model/use-favorites";
+import { MAX_FAVORITES, useFavorites } from "../model/use-favorites";
 import type { Coordinates } from "../model/weather";
 import { HourlyForecastTile, WeatherMetricTiles, WeeklyForecastTile } from "./weather-tiles";
 
@@ -14,7 +14,7 @@ type WeatherDetailProps = {
   className?: string;
   coordinates: Coordinates;
   activeDistrict: Nullable<District>;
-  onToggleFavorites: () => void;
+  onFavoritePanelToggle: () => void;
 };
 
 const HOURLY_FORECAST_LIMIT = 24;
@@ -23,10 +23,10 @@ export function WeatherDetail({
   className,
   coordinates,
   activeDistrict,
-  onToggleFavorites,
+  onFavoritePanelToggle,
 }: WeatherDetailProps) {
   const weather = useWeather(coordinates);
-  const { favorites } = useFavorites();
+  const { favorites, toggleFavorite } = useFavorites();
   const hourlyForecast = useMemo(
     () => weather.data.hourly.slice(0, HOURLY_FORECAST_LIMIT),
     [weather.data],
@@ -39,6 +39,7 @@ export function WeatherDetail({
     weather.data.current.isDay,
   );
   const favorite = favorites.find((item) => item.name === district.name);
+  const isFavorite = favorite != null;
   const placeName = favorite?.alias ?? district.name;
 
   return (
@@ -51,7 +52,10 @@ export function WeatherDetail({
       <WeatherDetailHeader
         className="relative z-10"
         activeDistrict={activeDistrict}
-        onToggleFavorites={onToggleFavorites}
+        isFavorite={isFavorite}
+        isFavoriteToggleDisabled={!isFavorite && favorites.length >= MAX_FAVORITES}
+        onFavoritePanelToggle={onFavoritePanelToggle}
+        onFavoriteToggle={handleFavoriteToggle}
       />
 
       <section className="relative z-10 flex flex-col items-center gap-xs text-center">
@@ -78,6 +82,10 @@ export function WeatherDetail({
       </div>
     </main>
   );
+
+  function handleFavoriteToggle() {
+    toggleFavorite({ ...district, alias: null });
+  }
 }
 
 type WeatherBackdropProps = {
@@ -139,24 +147,41 @@ function resolveWeatherBackdropClassName(weatherCode: number, isDay: boolean): s
 type WeatherDetailHeaderProps = {
   className?: string;
   activeDistrict: Nullable<District>;
-  onToggleFavorites: () => void;
+  isFavorite: boolean;
+  isFavoriteToggleDisabled: boolean;
+  onFavoritePanelToggle: () => void;
+  onFavoriteToggle: () => void;
 };
 
 function WeatherDetailHeader({
   className,
   activeDistrict,
-  onToggleFavorites,
+  isFavorite,
+  isFavoriteToggleDisabled,
+  onFavoritePanelToggle,
+  onFavoriteToggle,
 }: WeatherDetailHeaderProps) {
   return (
     <div className={cn("flex items-center justify-between gap-md", className)}>
-      <Button
-        size="icon"
-        variant="secondary"
-        aria-label="사이드바 토글"
-        onClick={onToggleFavorites}
-      >
-        <PanelLeftIcon />
-      </Button>
+      <div className="flex items-center gap-xs">
+        <Button
+          size="icon"
+          variant="secondary"
+          aria-label="사이드바 토글"
+          onClick={onFavoritePanelToggle}
+        >
+          <PanelLeftIcon />
+        </Button>
+        <Button
+          size="icon"
+          variant={isFavorite ? "default" : "secondary"}
+          disabled={isFavoriteToggleDisabled}
+          aria-label={isFavorite ? "즐겨찾기 삭제" : "즐겨찾기 추가"}
+          onClick={onFavoriteToggle}
+        >
+          <StarIcon className={cn(isFavorite && "fill-current")} />
+        </Button>
+      </div>
       {!activeDistrict && (
         <span className="inline-flex items-center gap-2xs text-caption text-meta">
           <LocateFixedIcon className="size-[16px]" />
