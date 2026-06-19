@@ -63,19 +63,14 @@ type WeeklyForecastTileProps = {
 
 export function WeeklyForecastTile({ className, daily }: WeeklyForecastTileProps) {
   return (
-    <WeatherTile
-      className={className}
-      contentClassName="justify-between gap-2xs"
-      icon={CalendarIcon}
-      label="주간 예보"
-    >
+    <WeatherTile className={className} icon={CalendarIcon} label="주간 예보">
       {daily.map((day, index) => {
         const condition = resolveWeatherCondition(day.weatherCode);
 
         return (
           <div
             key={day.date}
-            className="flex items-center gap-sm border-b border-hairline-soft py-2xs last:border-b-0"
+            className="flex flex-1 items-center gap-sm border-b border-hairline-soft py-2xs last:border-b-0"
           >
             <span className="w-8 text-title-sm text-ink">{formatWeekday(day.date, index)}</span>
             <condition.Icon className="size-5 text-meta" />
