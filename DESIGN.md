@@ -382,6 +382,8 @@ Single-glyph affordance (settings, refresh, remove-favorite, etc.). § 5.1.1. se
 | `:focus-visible` | `ring-2 ring-primary` (no offset)                                                                                                                        |
 | Icon color       | `ink` by default; never `primary` (reserved for CTAs — § 6.1.). Destructive variants (e.g. remove-favorite, § 5.4.) tint to `semantic-error` on `:hover` |
 
+**Nested-surface `:hover` exception.** The `:hover` → `surface-strong` step assumes the button rests directly on `canvas`/`page`. When an `icon-button-circle` is nested inside a non-`canvas` container that itself escalates on `:hover` — e.g. the settings affordance inside a `surface-soft` favorite cell that hovers to `surface-strong` (§ 5.4.) — its `:hover` MAY instead invert toward `canvas`, so the control stays legible as the surrounding cell darkens rather than merging into it. This is the sole permitted departure from the `:hover` step above: rest still starts at `surface-soft` (§ 3.1.5.), `:active` still resolves to `surface-pressed`, and the icon-color rule is unchanged.
+
 Tap target 36×36 is below the WCAG 2.5.5 44×44 floor; restrict to pointer-dominant control rails. Touch-priority surfaces use 44×44 alternatives.
 
 ## 5.2. Inputs.
