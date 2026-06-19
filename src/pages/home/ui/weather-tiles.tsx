@@ -26,7 +26,7 @@ type HourlyForecastTileProps = {
 export function HourlyForecastTile({ className, hourly }: HourlyForecastTileProps) {
   return (
     <WeatherTile className={className} icon={ClockIcon} label="시간별 예보">
-      <div className="overflow-x-auto pb-2xs">
+      <div className="scrollbar-hidden overflow-x-auto pb-2xs">
         <div className="flex min-w-max gap-2xs">
           {hourly.map((hour) => {
             const condition = resolveWeatherCondition(hour.weatherCode);

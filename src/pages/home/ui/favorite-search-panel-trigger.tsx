@@ -1,4 +1,5 @@
 import { BottomSheet, Input } from "@/shared/ui";
+import { MapPinOffIcon } from "lucide-react";
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { useDistrictSearch } from "../lib/use-district-search";
 import { type District } from "../model/district";
@@ -51,7 +52,7 @@ export function FavoriteSearchPanelTrigger({
           />
 
           {query.trim().length > 0 && (
-            <div className="min-h-0 overflow-auto rounded-lg border border-hairline bg-canvas">
+            <div className="scrollbar-hidden min-h-0 overflow-auto rounded-lg border border-hairline bg-canvas">
               {searchResults.length > 0 ? (
                 searchResults.map((district) => (
                   <button
@@ -64,9 +65,10 @@ export function FavoriteSearchPanelTrigger({
                   </button>
                 ))
               ) : (
-                <p className="px-md py-sm text-body-sm text-meta">
+                <div className="flex min-h-24 flex-col items-center justify-center gap-xs px-md py-md text-center text-body-sm text-meta">
+                  <MapPinOffIcon className="size-6" />
                   해당 장소의 정보가 제공되지 않습니다.
-                </p>
+                </div>
               )}
             </div>
           )}

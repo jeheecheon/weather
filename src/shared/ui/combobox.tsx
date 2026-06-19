@@ -69,7 +69,7 @@ type ComboboxListProps = ComponentProps<typeof ComboboxPrimitive.List> & {
 export function ComboboxList({ className, ...props }: ComboboxListProps) {
   return (
     <ComboboxPrimitive.List
-      className={cn("min-h-0 flex-1 overflow-y-auto py-2xs", className)}
+      className={cn("scrollbar-hidden min-h-0 flex-1 overflow-y-auto py-2xs", className)}
       {...props}
     />
   );

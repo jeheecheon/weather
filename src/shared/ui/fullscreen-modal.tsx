@@ -54,7 +54,9 @@ export function FullscreenModal({
             </Button>
           </DialogPrimitive.Close>
 
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">{children}</div>
+          <div className="scrollbar-hidden min-h-0 flex-1 overflow-y-auto overscroll-contain">
+            {children}
+          </div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

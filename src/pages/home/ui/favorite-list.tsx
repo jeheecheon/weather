@@ -27,7 +27,7 @@ export function FavoriteList({
         {favorites.length}/{MAX_FAVORITES}
       </span>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-sm overflow-auto pr-xs">
+      <div className="scrollbar-hidden flex min-h-0 flex-1 flex-col gap-sm overflow-auto">
         {favorites.length > 0 ? (
           favorites.map((favorite) => {
             const isSelected = favorite.name === activeDistrict?.name;

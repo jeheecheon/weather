@@ -25,19 +25,19 @@ export function HomePage({ className }: HomePageProps) {
   return (
     <div
       className={cn(
-        "relative isolate grid h-dvh min-h-dvh gap-lg bg-page/50 px-md py-lg transition-[grid-template-columns] ease-in-out md:px-xl md:py-xl",
-        isSidebarOpen ? "grid-cols-[18rem_1fr] duration-100" : "grid-cols-[0rem_1fr] duration-50",
+        "relative isolate grid min-h-dvh items-start bg-page/50 px-md transition-[grid-template-columns] ease-in-out md:px-xl",
+        isSidebarOpen ? "grid-cols-[20rem_1fr] duration-100" : "grid-cols-[0rem_1fr] duration-50",
         className,
       )}
     >
-      <div className="relative z-20 min-w-0 overflow-hidden">
+      <div className="sticky top-0 z-20 h-dvh min-w-0 overflow-hidden py-md md:py-xl">
         <FavoriteSidebar
-          className="h-full w-72"
+          className="h-full w-76"
           activeDistrict={activeDistrict}
           onActiveDistrictChange={handleActiveDistrictChange}
         />
       </div>
-      <div className="relative z-10 mx-auto h-full w-full max-w-5xl min-w-0 overflow-y-auto">
+      <div className="relative z-10 mx-auto w-full max-w-5xl min-w-0 py-md md:py-xl">
         {coordinates == null ? (
           <WeatherDetailSkeleton />
         ) : (

@@ -30,7 +30,9 @@ export function BottomSheet({
         <DrawerHeader className={headerClassName}>
           <DrawerTitle>{title}</DrawerTitle>
         </DrawerHeader>
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-md">{children}</div>
+        <div className="scrollbar-hidden min-h-0 flex-1 overflow-y-auto overscroll-contain px-md">
+          {children}
+        </div>
       </DrawerContent>
     </Drawer>
   );
