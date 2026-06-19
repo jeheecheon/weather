@@ -1,15 +1,35 @@
-import { getQueryClient } from "@/shared/api";
-import { QueryClientProvider as _QueryClientProvider } from "@tanstack/react-query";
+import { A_DAY, A_MINUTE } from "@/shared/lib";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { type PropsWithChildren } from "react";
 
-export function QueryClientProvider({ children }: PropsWithChildren) {
-  const client = getQueryClient();
+const QUERY_CACHE_MAX_AGE = A_DAY;
+const QUERY_CACHE_STORAGE_KEY = "weather-query-cache";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: A_DAY,
+      staleTime: 15 * A_MINUTE,
+    },
+  },
+});
+
+const queryPersister = createAsyncStoragePersister({
+  key: QUERY_CACHE_STORAGE_KEY,
+  storage: window.localStorage,
+});
+
+export function QueryClientProvider({ children }: PropsWithChildren) {
   return (
-    <_QueryClientProvider client={client}>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ maxAge: QUERY_CACHE_MAX_AGE, persister: queryPersister }}
+    >
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
-    </_QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }
