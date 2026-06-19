@@ -30,6 +30,7 @@ export function FavoriteCard({
     <div
       className={cn(
         "relative rounded-md border border-hairline bg-surface-soft transition-colors hover:bg-surface-strong",
+        "animate-in duration-700 ease-out fade-in",
         isSelected && "ring-2 ring-primary ring-inset",
         className,
       )}
