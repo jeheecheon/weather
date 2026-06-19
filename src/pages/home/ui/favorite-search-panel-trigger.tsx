@@ -1,6 +1,6 @@
 import { BottomSheet, Input } from "@/shared/ui";
-import { MapPinOffIcon } from "lucide-react";
-import { useEffect, useRef, useState, type SyntheticEvent } from "react";
+import { MapPinOffIcon, SearchIcon } from "lucide-react";
+import { useState, type SyntheticEvent } from "react";
 import { useDistrictSearch } from "../lib/use-district-search";
 import { type District } from "../model/district";
 
@@ -15,16 +15,6 @@ export function FavoriteSearchPanelTrigger({
 }: FavoriteSearchPanelTriggerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { query, setQuery, searchResults } = useDistrictSearch();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const frame = requestAnimationFrame(() => inputRef.current?.focus());
-    return () => cancelAnimationFrame(frame);
-  }, [isOpen]);
 
   return (
     <>
@@ -44,34 +34,36 @@ export function FavoriteSearchPanelTrigger({
       >
         <div className="flex min-h-0 flex-1 flex-col gap-md">
           <Input
-            ref={inputRef}
             variant="search"
             placeholder="장소 검색"
             value={query}
             onChange={handleQueryChange}
           />
 
-          {query.trim().length > 0 && (
-            <div className="scrollbar-hidden min-h-0 overflow-auto rounded-lg border border-hairline bg-canvas">
-              {searchResults.length > 0 ? (
-                searchResults.map((district) => (
-                  <button
-                    key={district.name}
-                    className="flex w-full items-center px-md py-sm text-left text-body-sm text-ink transition-colors hover:bg-surface-soft"
-                    type="button"
-                    onClick={() => handleSelectResult(district)}
-                  >
-                    <span className="min-w-0 truncate">{district.name}</span>
-                  </button>
-                ))
-              ) : (
-                <div className="flex min-h-24 flex-col items-center justify-center gap-xs px-md py-md text-center text-body-sm text-meta">
-                  <MapPinOffIcon className="size-6" />
-                  해당 장소의 정보가 제공되지 않습니다.
-                </div>
-              )}
-            </div>
-          )}
+          <div className="scrollbar-hidden flex min-h-0 flex-1 flex-col overflow-auto rounded-lg border border-hairline bg-canvas">
+            {query.trim().length === 0 ? (
+              <div className="flex flex-1 flex-col items-center justify-center gap-xs px-md py-md text-center text-body-sm text-meta">
+                <SearchIcon className="size-6" />
+                검색 결과가 이곳에 표시됩니다.
+              </div>
+            ) : searchResults.length > 0 ? (
+              searchResults.map((district) => (
+                <button
+                  key={district.name}
+                  className="flex w-full items-center px-md py-sm text-left text-body-sm text-ink transition-colors hover:bg-surface-soft"
+                  type="button"
+                  onClick={() => handleSelectResult(district)}
+                >
+                  <span className="min-w-0 truncate">{district.name}</span>
+                </button>
+              ))
+            ) : (
+              <div className="flex flex-1 flex-col items-center justify-center gap-xs px-md py-md text-center text-body-sm text-meta">
+                <MapPinOffIcon className="size-6" />
+                해당 장소의 정보가 제공되지 않습니다.
+              </div>
+            )}
+          </div>
         </div>
       </BottomSheet>
     </>
