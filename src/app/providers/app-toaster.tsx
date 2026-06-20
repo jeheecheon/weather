@@ -11,7 +11,7 @@ export function AppToaster({ className }: AppToasterProps) {
       position="top-center"
       toastOptions={{
         className:
-          "rounded-lg border border-hairline bg-canvas px-md py-sm font-sans text-body-sm text-center text-ink whitespace-pre-line shadow-floating",
+          "rounded-lg border border-hairline bg-canvas px-md py-sm font-sans text-body-sm text-left text-ink whitespace-pre-line shadow-floating",
       }}
     />
   );
