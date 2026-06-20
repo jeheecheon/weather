@@ -12,6 +12,7 @@ import {
   UmbrellaIcon,
   WindIcon,
 } from "lucide-react";
+import { useScrollToStart } from "../lib/use-scroll-to-start";
 import { resolveWeatherCondition } from "../lib/weather-code";
 import type { CurrentWeather, DailyWeather, HourlyWeather, TodayWeather } from "../model/weather";
 import { WeatherTile } from "./weather-tile";
@@ -24,16 +25,21 @@ type HourlyForecastTileProps = {
 };
 
 export function HourlyForecastTile({ className, hourly }: HourlyForecastTileProps) {
+  const { containerRef, targetRef } = useScrollToStart(hourly);
+
   return (
     <WeatherTile className={className} icon={ClockIcon} label="시간별 예보">
-      <div className="scrollbar-hidden overflow-x-auto pb-2xs">
+      <div ref={containerRef} className="scrollbar-hidden overflow-x-auto pb-2xs">
         <div className="flex min-w-max gap-2xs">
           {hourly.map((hour) => {
             const condition = resolveWeatherCondition(hour.weatherCode);
+            const now = new Date();
+            const isCurrentTile = isSameHour(new Date(hour.time), now);
 
             return (
               <div
                 key={hour.time}
+                ref={isCurrentTile ? targetRef : undefined}
                 className="flex w-16 shrink-0 flex-col items-center gap-xs rounded-md bg-surface-soft py-sm"
               >
                 <span className="text-num-mono text-meta">{formatHour(hour.time)}</span>
@@ -162,6 +168,15 @@ export function WeatherMetricTiles({ current, today }: WeatherMetricTilesProps) 
 
 function formatHour(time: string): string {
   return `${new Date(time).getHours()}시`;
+}
+
+function isSameHour(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate() &&
+    a.getHours() === b.getHours()
+  );
 }
 
 function formatTime(time: string): string {
