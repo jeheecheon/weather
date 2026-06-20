@@ -18,6 +18,7 @@ export function FavoriteSidebar({
   activeDistrict,
   onActiveDistrictChange,
 }: FavoriteSidebarProps) {
+  const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const { favorites, removeFavorite, updateFavorite } = useFavorites();
   const [editingFavorite, setEditingFavorite] = useState<Optional<Favorite>>();
 
@@ -33,25 +34,30 @@ export function FavoriteSidebar({
       <FavoriteList
         activeDistrict={activeDistrict}
         favorites={favorites}
-        onEditFavorite={setEditingFavorite}
+        onEditFavorite={handleEditFavorite}
         onSelectFavorite={onActiveDistrictChange}
       />
 
-      <Modal isOpen={editingFavorite != null} title="즐겨찾기 편집" onClose={handleEditDialogClose}>
-        {editingFavorite && (
+      {editingFavorite && (
+        <Modal isOpen={isEditOpen} title="즐겨찾기 편집" onClose={handleEditDialogClose}>
           <FavoriteEditForm
             favorite={editingFavorite}
             onCancel={handleEditDialogClose}
             onRemoveFavorite={handleRemoveEditedFavorite}
             onUpdateFavorite={handleUpdateEditedFavorite}
           />
-        )}
-      </Modal>
+        </Modal>
+      )}
     </aside>
   );
 
+  function handleEditFavorite(favorite: Favorite) {
+    setEditingFavorite(favorite);
+    setIsEditOpen(true);
+  }
+
   function handleEditDialogClose() {
-    setEditingFavorite(undefined);
+    setIsEditOpen(false);
   }
 
   function handleRemoveEditedFavorite(favorite: Favorite) {
