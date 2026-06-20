@@ -5,6 +5,7 @@ import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
+  server: { allowedHosts: [".trycloudflare.com"] },
   plugins: [react(), tailwindcss(), svgr()],
   resolve: {
     alias: {
