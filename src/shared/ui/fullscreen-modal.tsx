@@ -31,31 +31,28 @@ export function FullscreenModal({
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={handleOpenChange}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Content
-          className={cn(
-            "fixed inset-0 z-50 flex flex-col gap-md bg-canvas p-md outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-left data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left",
-            className,
-          )}
-        >
-          <div className={cn("flex flex-col gap-2xs pr-xl", headerClassName)}>
-            <DialogPrimitive.Title className="text-display-sm text-ink">
-              {title}
-            </DialogPrimitive.Title>
-          </div>
+        <DialogPrimitive.Content className="fixed inset-0 z-50 flex bg-canvas outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-left data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left">
+          <div
+            className={cn(
+              "scrollbar-hidden flex flex-1 flex-col gap-md overflow-y-auto overscroll-contain p-md",
+              className,
+            )}
+          >
+            <div className="flex justify-between">
+              <DialogPrimitive.Title
+                className={cn("pr-xl text-display-sm text-ink", headerClassName)}
+              >
+                {title}
+              </DialogPrimitive.Title>
 
-          <DialogPrimitive.Close asChild>
-            <Button
-              className="absolute top-md right-md"
-              size="icon"
-              variant="secondary"
-              aria-label="닫기"
-            >
-              <XIcon />
-            </Button>
-          </DialogPrimitive.Close>
+              <DialogPrimitive.Close asChild>
+                <Button size="icon" variant="secondary" aria-label="닫기">
+                  <XIcon />
+                </Button>
+              </DialogPrimitive.Close>
+            </div>
 
-          <div className="scrollbar-hidden min-h-0 flex-1 overflow-y-auto overscroll-contain">
-            {children}
+            <div className="flex-1">{children}</div>
           </div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
