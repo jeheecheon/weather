@@ -30,7 +30,7 @@ export function FavoriteFullscreenModal({
   const isDesktop = useDesktopBreakpoint();
 
   return (
-    <FullscreenModal className={className} isOpen={isOpen} title="즐겨찾기" onClose={onClose}>
+    <FullscreenModal className={className} isOpen={isOpen} title="날씨" onClose={onClose}>
       {isDesktop ? (
         <FavoriteSearchCombobox onSelectDistrict={onActiveDistrictChange} />
       ) : (
