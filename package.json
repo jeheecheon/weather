@@ -7,7 +7,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "concurrently -n app,steiger -c blue,yellow \"pnpm dev:app\" \"pnpm dev:steiger\"",
-    "dev:app": "vite",
+    "dev:app": "vite --host",
     "dev:steiger": "steiger ./src --watch",
     "build": "pnpm lint:steiger && tsc && vite build",
     "preview": "vite preview",
